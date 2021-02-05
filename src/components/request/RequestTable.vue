@@ -16,11 +16,11 @@
         <td>{{ idx + 1 }}</td>
         <td>{{ r.fio }}</td>
         <td>{{ r.phone }}</td>
-        <td>{{ r.amount }}</td>
-        <td>{{ r.status }}</td>
+        <td>{{ currency(r.amount) }}</td>
+        <td><AppStatus :type="r.status"/></td>
         <td>
           <router-link v-slot="{navigate}" custom :to="{name: 'Request', params: {id: r.id}}">
-            <button class="btn primary" @click="navigate">Открыть</button>
+            <button class="btn" @click="navigate">Открыть</button>
           </router-link>
         </td>
       </tr>
@@ -30,8 +30,15 @@
 </template>
 
 <script>
+import {currency} from '@/utils/currency'
+import AppStatus from "@/components/ui/AppStatus";
+
 export default {
-  props: ['requests']
+  components: {AppStatus},
+  props: ['requests'],
+  setup() {
+    return {currency}
+  }
 }
 </script>
 
